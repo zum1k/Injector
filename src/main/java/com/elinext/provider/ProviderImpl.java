@@ -23,8 +23,9 @@ public class ProviderImpl<T> implements Provider<T> {
   }
 
   private List<Constructor> defaultConstructors(Class type){
-    List<Constructor> constructors = Arrays.asList(type.getConstructors());
-    constructors.stream().filter();
+    //List<Constructor> constructors = Arrays.asList(type.getConstructors());
+    //constructors.stream().filter();
+    return null;
   }
 
 }
