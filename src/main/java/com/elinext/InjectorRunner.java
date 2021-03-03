@@ -1,6 +1,7 @@
 package com.elinext;
 
 import com.elinext.annotation.Inject;
+import com.elinext.provider.Provider;
 import com.elinext.scanner.Scanner;
 import com.elinext.scanner.ScannerImpl;
 
@@ -9,6 +10,7 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class InjectorRunner {
@@ -16,19 +18,18 @@ public class InjectorRunner {
   private final Injector injector = new InjectorImpl();
   private static final Scanner scanner = ScannerImpl.getInstance();
 
-  public static void run() {
+  public void run() {
     try {
       List<Class> classes = scanner.scan();
       InjectorRunner runner = new InjectorRunner();
       runner.bind(classes);
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (ClassNotFoundException e) {
-      e.printStackTrace();
+      classes.forEach(injector::getProvider);
+
+    } catch (IOException | ClassNotFoundException e) {
+      throw new RuntimeException(e.getMessage(), e);
     }
 
   }
-
 
   private void bind(List<Class> classes) {
     List<Class> defaultClasses = findClassesWithDefaultConstructor(classes);

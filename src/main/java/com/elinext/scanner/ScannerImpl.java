@@ -1,6 +1,7 @@
 package com.elinext.scanner;
 
 import com.elinext.InjectorImpl;
+import com.elinext.InjectorRunner;
 import com.elinext.annotation.Bean;
 import com.elinext.annotation.Inject;
 import com.elinext.exception.BeanClassesNotFoundException;
@@ -29,7 +30,7 @@ public class ScannerImpl implements Scanner {
 
   @Override
   public List<Class> scan() throws IOException, ClassNotFoundException {
-    String defaultPackage = InjectorImpl.class.getPackage().getName();
+    String defaultPackage = InjectorRunner.class.getPackage().getName();
     return getInjectedClasses(defaultPackage);
   }
 
